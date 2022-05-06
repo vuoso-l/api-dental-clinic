@@ -20,13 +20,13 @@ class DentistServiceTest {
 
     DentistDTO dent1 = new DentistDTO();
     DentistDTO dentTest;
-    Collection <DentistDTO> readAll;
+    Collection<DentistDTO> readAll;
 
     @BeforeEach
     void setUp() {
-        dent1.setRegistrationNumber("123456");
-        dent1.setFirstName("Probando!!");
-        dent1.setLastName("Prueba-1");
+        dent1.setRegistrationNumber("24231" + Math.random());
+        dent1.setFirstName("reTest!!");
+        dent1.setLastName("Test-4");
         dentTest = iDentistService.create(dent1);
     }
 
@@ -38,20 +38,26 @@ class DentistServiceTest {
     }
 
     @Test
+    void findById() {
+        assertNotNull(iDentistService.findOne(dentTest.getId()));
+    }
+
+    @Test
     void update() {
-        dentTest.setId(dent1.getId());
-        dentTest.setRegistrationNumber("159321");
-        dentTest.setFirstName("ReUpdate");
-        dentTest.setLastName("Prueba-1");
-        DentistDTO readUpdate = iDentistService.update(dentTest, dentTest.getId());
-        assertEquals(iDentistService.findOne(readUpdate.getId()).getFirstName(), "ReUpdate");
+        DentistDTO getCreate = iDentistService.findOne(dentTest.getId());
+        getCreate.setRegistrationNumber("998877" + Math.random());
+        getCreate.setFirstName("Update");
+        getCreate.setLastName("Test-1");
+        DentistDTO readUpdate = iDentistService.update(getCreate, getCreate.getId());
+        assertEquals(iDentistService.findOne(readUpdate.getId()).getFirstName(), "Update");
+        assertNotEquals(readUpdate, getCreate);
     }
 
     @Test
     void delete() {
         assertNotNull(iDentistService.findOne(dentTest.getId()));
         iDentistService.delete(dentTest.getId());
-        assertNull(iDentistService.findOne(dentTest.getId()));
+        assertThrows(Exception.class, () -> iDentistService.findOne(dentTest.getId()));
     }
 
     @Test

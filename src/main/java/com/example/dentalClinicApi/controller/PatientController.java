@@ -4,6 +4,7 @@ import com.example.dentalClinicApi.DTO.PatientDTO;
 import com.example.dentalClinicApi.service.IPatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class PatientController {
     IPatientService iPatientService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Create a new patient")
+    @Operation(summary = "Create a new patient", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/register")
     public ResponseEntity<?> addPatient(@Valid @RequestBody PatientDTO patientDTO) {
         PatientDTO patientCreated = iPatientService.create(patientDTO);
@@ -45,7 +46,7 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update an existing patient")
+    @Operation(summary = "Update an existing patient", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePatient(@Valid @RequestBody PatientDTO patientDTO, @Parameter(description = "Dentist ID to be updated") @PathVariable Integer id) {
         ResponseEntity<?> res;
@@ -59,7 +60,7 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete an existing patient")
+    @Operation(summary = "Delete an existing patient", security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePatient(@Parameter(description = "Dentist ID to be deleted") @PathVariable Integer id) {
         ResponseEntity<String> res;

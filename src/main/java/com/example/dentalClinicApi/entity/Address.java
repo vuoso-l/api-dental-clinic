@@ -31,6 +31,13 @@ public class Address {
     @Column(name = "province", nullable = false)
     private String province;
 
+    public Address(String street, String locality, int number, String province) {
+        this.street = street;
+        this.locality = locality;
+        this.number = number;
+        this.province = province;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

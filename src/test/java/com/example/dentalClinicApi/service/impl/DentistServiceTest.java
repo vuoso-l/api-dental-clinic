@@ -1,6 +1,7 @@
-package com.example.dentalClinicApi.service;
+package com.example.dentalClinicApi.service.impl;
 
 import com.example.dentalClinicApi.DTO.DentistDTO;
+import com.example.dentalClinicApi.service.IDentistService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

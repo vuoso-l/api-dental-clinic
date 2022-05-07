@@ -59,10 +59,10 @@ class PatientServiceTest {
         PatientDTO getCreate = iPatientService.findOne(patTest.getId());
         getCreate.setLastName("Test-1");
         getCreate.setFirstName("Update");
-        pat1.setEmail(Math.random() + "update@gmail.com");
-        pat1.setDni("30456123");
-        pat1.setAdmissionDate(LocalDate.of(2022, 1, 1));
-        pat1.setAddress(address);
+        getCreate.setEmail(Math.random() + "update@gmail.com");
+        getCreate.setDni("30456123");
+        getCreate.setAdmissionDate(LocalDate.of(2022, 1, 1));
+        getCreate.setAddress(address);
         PatientDTO readUpdate = iPatientService.update(getCreate, getCreate.getId());
         assertEquals(iPatientService.findOne(readUpdate.getId()).getFirstName(), "Update");
         assertNotEquals(readUpdate, getCreate);

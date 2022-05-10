@@ -16,3 +16,4 @@ To see the web interface where all the API endpoints are shown with the data the
 - Endpoints security based on JWT tokens
 - Deployment on Heroku (PaaS)
 - Unit tests - Junit 5
+- Swagger UI - Documentation

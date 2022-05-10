@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.HEADER;
+
 @Tag(name = "Patients", description = "Operations related to patients")
 @RestController
 @CrossOrigin(origins = "*")
@@ -25,9 +27,13 @@ public class PatientController {
     IPatientService iPatientService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Create a new patient", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Create a new patient",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/register")
-    public ResponseEntity<?> addPatient(@Valid @RequestBody PatientDTO patientDTO) {
+    public ResponseEntity<?> addPatient(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Object with patient's data to be created")
+            @Valid @RequestBody PatientDTO patientDTO) {
         PatientDTO patientCreated = iPatientService.create(patientDTO);
         return new ResponseEntity<>(patientCreated, HttpStatus.OK);
     }
@@ -46,9 +52,14 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update an existing patient", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Update an existing patient",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePatient(@Valid @RequestBody PatientDTO patientDTO, @Parameter(description = "Dentist ID to be updated") @PathVariable Integer id) {
+    public ResponseEntity<?> updatePatient(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Object with patient's data to be created")
+            @Valid @RequestBody PatientDTO patientDTO,
+            @Parameter(description = "Dentist ID to be updated") @PathVariable Integer id) {
         ResponseEntity<?> res;
         if (iPatientService.findOne(patientDTO.getId()) != null) {
             PatientDTO patientUpdated = iPatientService.update(patientDTO, id);
@@ -60,7 +71,9 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete an existing patient", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Delete an existing patient",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePatient(@Parameter(description = "Dentist ID to be deleted") @PathVariable Integer id) {
         ResponseEntity<String> res;

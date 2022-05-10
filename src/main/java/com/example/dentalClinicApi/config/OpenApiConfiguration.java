@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SecurityScheme(
         name = "bearerAuth",
+        description = "Insert JWT Token obtained from user. Authorization URL: https://api-dental-clinic.herokuapp.com/auth/login",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
         scheme = "bearer"
@@ -24,13 +25,13 @@ public class OpenApiConfiguration {
                 .components(new Components())
                 .info(new Info()
                         .title("Dentist clinic API")
-                        .description("This document contains the documentation for using the dental clinic API.\n" +
-                                "Base url: https://api-dental-clinic.herokuapp.com/")
+                        .description("This document contains the documentation for using the dental clinic API. Base url: https://api-dental-clinic.herokuapp.com/")
                         .contact(new Contact()
                                 .name("Lucas Vuoso")
                                 .email("vuosolucas@gmail.com")
-                                .url("https://www.linkedin.com/in/vuoso-l/")
+                                .url("https://portfolio-vuoso-lucas.vercel.app/")
                         )
+                        .version("1.0.0")
                 );
     }
 }

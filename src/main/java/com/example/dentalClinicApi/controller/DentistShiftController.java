@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.HEADER;
+
 @Tag(name = "DentistShifts", description = "Operations related to dentistShifts")
 @RestController
 @CrossOrigin(origins = "*")
@@ -25,9 +27,13 @@ public class DentistShiftController {
     IDentistShiftService iDentistShiftService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Create a new dentistShift", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Create a new dentistShift",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/api/register")
-    public ResponseEntity<?> addDentistShift(@Valid @RequestBody DentistShiftDTO dentistShiftDTO) {
+    public ResponseEntity<?> addDentistShift(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Object with dentistShift's data to be created")
+            @Valid @RequestBody DentistShiftDTO dentistShiftDTO) {
         DentistShiftDTO dentistShiftCreated = iDentistShiftService.create(dentistShiftDTO);
         return new ResponseEntity<>(dentistShiftCreated, HttpStatus.OK);
     }
@@ -46,9 +52,14 @@ public class DentistShiftController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update an existing dentistShift", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Update an existing dentistShift",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateDentistShift(@Valid @RequestBody DentistShiftDTO dentistShiftDTO, @Parameter(description = "DentistShif ID to be updated") @PathVariable Integer id) {
+    public ResponseEntity<?> updateDentistShift(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Object with dentistShift's data to be created")
+            @Valid @RequestBody DentistShiftDTO dentistShiftDTO,
+            @Parameter(description = "DentistShif ID to be updated") @PathVariable Integer id) {
         ResponseEntity<?> res;
         if (iDentistShiftService.findOne(dentistShiftDTO.getId()) != null) {
             DentistShiftDTO dentistShiftUpdated = iDentistShiftService.update(dentistShiftDTO, id);
@@ -60,7 +71,9 @@ public class DentistShiftController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete an existing dentist", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Delete an existing dentist",
+            parameters = @Parameter(name = "Authorization", in = HEADER, description = "JWT token required", required = true),
+            security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDentistShift(@Parameter(description = "DentistShift ID to be deleted") @PathVariable Integer id) {
         ResponseEntity<String> res;

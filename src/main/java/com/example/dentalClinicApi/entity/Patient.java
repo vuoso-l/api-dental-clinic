@@ -48,6 +48,15 @@ public class Patient {
     @ToString.Exclude
     private Set<DentistShift> dentistShifts;
 
+    public Patient(String lastName, String firstName, String email, String dni, LocalDate admissionDate, Address address) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.dni = dni;
+        this.admissionDate = admissionDate;
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

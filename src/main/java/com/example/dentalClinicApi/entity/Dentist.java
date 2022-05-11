@@ -37,6 +37,12 @@ public class Dentist {
     @ToString.Exclude
     private Set<DentistShift> dentistShifts;
 
+    public Dentist(String registrationNumber, String firstName, String lastName) {
+        this.registrationNumber = registrationNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class DentistShiftDTO {
     private Integer id;
 
-    @NotEmpty(message = "No puede estar vaacío")
+    @NotEmpty(message = "No puede estar vacío")
     private LocalDate date;
     private Patient patient;
     private Dentist dentist;

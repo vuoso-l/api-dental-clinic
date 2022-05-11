@@ -23,12 +23,12 @@ public class DentistShift {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_patient", nullable = false)
     @ToString.Exclude
     private Patient patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_dentist", nullable = false)
     @ToString.Exclude
     private Dentist dentist;

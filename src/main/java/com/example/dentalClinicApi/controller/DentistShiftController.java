@@ -19,7 +19,6 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.HEADER;
 
 @Tag(name = "DentistShifts", description = "Operations related to dentistShifts")
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/dentistShift")
 public class DentistShiftController {
 

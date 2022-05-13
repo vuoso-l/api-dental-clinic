@@ -24,7 +24,6 @@ import java.util.Collections;
 
 @Tag(name = "Users", description = "Operations related to users")
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/auth")
 public class AuthController {
 

@@ -19,7 +19,6 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.HEADER;
 
 @Tag(name = "Patients", description = "Operations related to patients")
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/patient")
 public class PatientController {
 
